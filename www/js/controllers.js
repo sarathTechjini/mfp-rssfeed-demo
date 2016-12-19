@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope, MFPInit) {
-  MFPInit.then(function() {
+.controller('NewsCtrl', function($scope, MFPInit) {
+    MFPInit.then(function() {
       WL.App.getServerUrl(function(url) {
         $scope.serverurl = url;
       });
@@ -15,9 +15,8 @@ angular.module('starter.controllers', [])
             alert("Failed to initialize");
         });
       }
-
     });
-  $scope.$on('$ionicView.enter', function() {
+    $scope.$on('$ionicView.enter', function() {
       MFPInit.then(function() { WL.Analytics.log({ AppView: 'MFPF' }, "visit mfpf view"); console.log("mfpf view enter") });
     });
 
@@ -77,76 +76,77 @@ angular.module('starter.controllers', [])
     } catch(err) {
       console.log(err);
     }
-    //MobileFirst Authentication setup
-    var securityCheckName = 'UserLogin';
+  });
+  //   //MobileFirst Authentication setup
+  //   var securityCheckName = 'UserLogin';
 
-    MFPInit.then(function() {
-      LoginChallenge = new WL.Client.createSecurityCheckChallengeHandler(securityCheckName);
+  //   MFPInit.then(function() {
+  //     LoginChallenge = new WL.Client.createSecurityCheckChallengeHandler(securityCheckName);
 
-      LoginChallenge.securityCheckName = securityCheckName;
+  //     LoginChallenge.securityCheckName = securityCheckName;
 
-      LoginChallenge.handleChallenge = function(response) {
-        $rootScope.login();
-      };
+  //     LoginChallenge.handleChallenge = function(response) {
+  //       $rootScope.login();
+  //     };
 
-      LoginChallenge.processSuccess = function(data) {
-        WL.Logger.debug("processSuccess");
-        console.log("LoginChallenge.processSuccess");
-      };
+  //     LoginChallenge.processSuccess = function(data) {
+  //       WL.Logger.debug("processSuccess");
+  //       console.log("LoginChallenge.processSuccess");
+  //     };
 
-      LoginChallenge.handleFailure = function(error) {
-        console.log("LoginChallenge.handleFailure");
-      };
-
-
-      $rootScope.doLogin = function() {
-        console.log('Submitting LoginData', $rootScope.loginData.username);
-        $rootScope.closeLogin();
-        /*
-        $timeout(function() {
-          LoginChallenge.submitChallengeAnswer({
-            'username': $rootScope.loginData.username,
-            'password': $rootScope.loginData.password
-          });
-        }, 3000, false, [Pass]);
-        */
-        LoginChallenge.submitChallengeAnswer({
-          'username': $rootScope.loginData.username,
-          'password': $rootScope.loginData.password
-        });
-
-      };
+  //     LoginChallenge.handleFailure = function(error) {
+  //       console.log("LoginChallenge.handleFailure");
+  //     };
 
 
-      $rootScope.doLogout = function() {
-        WLAuthorizationManager.logout(securityCheckName).then(
-          function() {
-            WL.Logger.debug("logout onSuccess");
-            location.reload();
-          },
-          function(response) {
-            WL.Logger.debug("logout onFailure: " + JSON.stringify(response));
-          });
-      }
-    });
+  //     $rootScope.doLogin = function() {
+  //       console.log('Submitting LoginData', $rootScope.loginData.username);
+  //       $rootScope.closeLogin();
+        
+  //       $timeout(function() {
+  //         LoginChallenge.submitChallengeAnswer({
+  //           'username': $rootScope.loginData.username,
+  //           'password': $rootScope.loginData.password
+  //         });
+  //       }, 3000, false, [Pass]);
+        
+  //       LoginChallenge.submitChallengeAnswer({
+  //         'username': $rootScope.loginData.username,
+  //         'password': $rootScope.loginData.password
+  //       });
+
+  //     };
 
 
-    $rootScope.loginData = {};
-    // Create the login modal that we will use later
-    $ionicModal.fromTemplateUrl('templates/login.html', {
-      scope: $rootScope
-    }).then(function(modal) {
-      $rootScope.modal = modal;
-    });
+  //     $rootScope.doLogout = function() {
+  //       WLAuthorizationManager.logout(securityCheckName).then(
+  //         function() {
+  //           WL.Logger.debug("logout onSuccess");
+  //           location.reload();
+  //         },
+  //         function(response) {
+  //           WL.Logger.debug("logout onFailure: " + JSON.stringify(response));
+  //         });
+  //     }
+  //   });
 
-    // Triggered in the login modal to close it
-    $rootScope.closeLogin = function() {
-      $rootScope.modal.hide();
-    };
 
-    // Open the login modal
-    $rootScope.login = function() {
-      $rootScope.modal.show();
-    };
+  //   $rootScope.loginData = {};
+  //   // Create the login modal that we will use later
+  //   $ionicModal.fromTemplateUrl('templates/login.html', {
+  //     scope: $rootScope
+  //   }).then(function(modal) {
+  //     $rootScope.modal = modal;
+  //   });
 
-  })
+  //   // Triggered in the login modal to close it
+  //   $rootScope.closeLogin = function() {
+  //     $rootScope.modal.hide();
+  //   };
+
+  //   // Open the login modal
+  //   $rootScope.login = function() {
+  //     $rootScope.modal.show();
+  //   };
+
+  // })

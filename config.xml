@@ -9,7 +9,7 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
-    <allow-navigation href="http://*/*" />  
+    <allow-navigation href="http://*/*" />
     <allow-navigation href="https://*/*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -29,8 +29,6 @@
         <param name="ios-package" onload="true" value="CDVStatusBar" />
     </feature>
     <platform name="android">
-        <allow-intent href="itms:*" />
-        <allow-intent href="itms-apps:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
         <icon density="hdpi" src="resources/android/icon/drawable-hdpi-icon.png" />
@@ -52,7 +50,7 @@
     </platform>
     <mfp:android>
         <mfp:sdkChecksum>2593082921</mfp:sdkChecksum>
-        <mfp:appChecksum>0</mfp:appChecksum>
+        <mfp:appChecksum>315021559</mfp:appChecksum>
         <mfp:security>
             <mfp:testWebResourcesChecksum enabled="false" ignoreFileExtensions="png, jpg, jpeg, gif, mp4, mp3" />
         </mfp:security>
