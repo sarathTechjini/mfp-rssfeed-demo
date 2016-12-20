@@ -1,7 +1,11 @@
-<ion-view view-title="Dashboard">
-  <ion-content class="padding">
-    <h2>News</h2>
-    <button class="button button-full button-assertive" ng-click="greetAdapter()">Call Adapter</button>
-    <div id="resultGreet"></div>
+<ion-view view-title="News">
+  <ion-content class="padding" ng-init="news.getNews()">
+    <div class="list" ng-repeat="item in newsData">
+	    <a class="item item-thumbnail-left" href="#/tab/chats/{{$index}}">
+	      <img src="{{item.urlToImage}}">
+	      <h2>{{item.title}}</h2>
+	      <p style="height: 58px;white-space: normal;">{{item.description}}</p>
+	    </a>
+	</div>
   </ion-content>
 </ion-view>

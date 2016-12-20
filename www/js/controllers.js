@@ -1,15 +1,18 @@
 angular.module('starter.controllers', [])
 
-.controller('NewsCtrl', function($scope, MFPInit) {
+.controller('NewsCtrl', ["$scope", "MFPInit", "$http", "getNewsService", function($scope, MFPInit, $http,getNewsService) {
+
+    this.apiKey="e8e0a7e1e655407ea5d36313df5df90c";
+    this.url="https://newsapi.org/v1/articles?source=cnn&sortBy=top&apiKey=";
+    $scope.newsData=[];
     MFPInit.then(function() {
-      WL.App.getServerUrl(function(url) {
-        $scope.serverurl = url;
-      });
+      // WL.App.getServerUrl(function(url) {
+      //   $scope.serverurl = url;
+      // });
       if(typeof MFPPush !== 'undefined'){
         MFPPush.initialize(
           function(successResponse) {
             console.log("Initialized",successResponse);
-            WL.Logger.debug("Successfully intialized");
             MFPPush.registerNotificationsCallback(notificationReceived);
         }, function(failureResponse) {
             alert("Failed to initialize");
@@ -21,27 +24,46 @@ angular.module('starter.controllers', [])
     });
 
     function greetAdapter() {
-      var resourceRequest = new WLResourceRequest(
-        "/adapters/javaAdapter/resource/greet",
-        WLResourceRequest.GET
-      );
-      resourceRequest.setQueryParameter("name", "Ajay");
+      try {
+        var resourceRequest = new WLResourceRequest(
+          "/adapters/JavaAdapter/resource/status",
+          WLResourceRequest.GET
+        );
+        // resourceRequest.setQueryParameter("name", "Ajay");
 
-      resourceRequest.send().then(
-        function(response) {
-          WL.Logger.debug("Adapter response: " + response.responseText);
-          document.getElementById("resultGreet").innerHTML = "Adapter said: " + response.responseText;
-        },
-        function(response) {
-          WL.Logger.debug("Failed to call adapter: " + JSON.stringify(response));
-          document.getElementById("resultGreet").innerHTML = "Failed to call adapter.";
+        resourceRequest.send().then(
+          function(response) {
+            console.log(response);
+          },
+          function(response) {
+            console.log(response);
+          });
+      } catch(e) {
+        setTimeout(function(){
+          greetAdapter();
+        },1000);
+      }
+      
+    }
+
+    function getNews() {
+      getNewsService.getAllNews()
+        .then(function(res){
+          $scope.newsData=res;
         });
     }
-    $scope.greetAdapter = greetAdapter;
 
-})
+    $scope.openTab=function() {
 
-.controller('ChatsCtrl', function($scope, Chats) {
+    }
+
+    this.getNews=getNews;
+    // $scope.greetAdapter = greetAdapter;
+    greetAdapter();
+
+}])
+
+.controller('VideosCtrl', function($scope, getNewsService) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -50,14 +72,16 @@ angular.module('starter.controllers', [])
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
+  // $scope.chats = getNewsService.all();
+  // $scope.remove = function(chat) {
+  //   Chats.remove(chat);
+  // };
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+.controller('ChatDetailCtrl', function($scope, $stateParams, getNewsService) {
+  console.log("inside");
+  $scope.news = getNewsService.getNews($stateParams.chatId);
+  console.log($scope.news);
 })
 
 .controller('SearchCtrl', function($scope) {

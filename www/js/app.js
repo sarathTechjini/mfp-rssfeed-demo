@@ -46,7 +46,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     views: {
       'tab-news': {
         templateUrl: 'templates/tab-news.html',
-        controller: 'NewsCtrl'
+        controller: 'NewsCtrl',
+        controllerAs : 'news'
       }
     }
   })
@@ -63,7 +64,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     .state('tab.chat-detail', {
       url: '/chats/:chatId',
       views: {
-        'tab-chats': {
+        'tab-news': {
           templateUrl: 'templates/chat-detail.html',
           controller: 'ChatDetailCtrl'
         }
